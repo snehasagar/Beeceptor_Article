@@ -31,14 +31,14 @@ class DetailArticleActivity : AppCompatActivity() {
         initView()
         textView_edit.setOnClickListener {
 
-            if(textView_edit.text.toString() == "Edit"){
+            if (textView_edit.text.toString() == "Edit") {
                 textView_edit.text = getString(R.string.cancel_btn)
                 button_save.visibility = View.VISIBLE
                 textView_edit.isFocusable = true
                 textView_edit.isClickable = true
                 textView_edit.isEnabled = true
 
-            }else if(textView_edit.text.toString() == "Cancel"){
+            } else if (textView_edit.text.toString() == "Cancel") {
                 textView_edit.text = getString(R.string.edit_btn)
                 button_save.visibility = View.GONE
                 textView_edit.isFocusable = false
@@ -56,26 +56,30 @@ class DetailArticleActivity : AppCompatActivity() {
         }
 
     }
-     fun initView(){
-         val id = intent?.getIntExtra("id",0)
-         getArticleDetailFromApi(id!!)
 
-         val title = intent.getStringExtra("title")
-         if(title!=null){
-             textView_title.text = title
-         }
+    fun initView() {
+        val id = intent?.getIntExtra("id", 0)
+        getArticleDetailFromApi(id!!)
 
-         val logo = intent.getStringExtra("logo")
-         if(logo!=null){
-             Glide.with(this).load(logo).into(imageView_logo)
-         }
-     }
+        val title = intent.getStringExtra("title")
+        if (title != null) {
+            textView_title.text = title
+        }
 
-    private fun getArticleDetailFromApi(id:Int){
+        val logo = intent.getStringExtra("logo")
+        if (logo != null) {
+            Glide.with(this).load(logo).into(imageView_logo)
+        }
+    }
+
+    private fun getArticleDetailFromApi(id: Int) {
         Loading.showLoading(this)
         val call = viewModel.getArticleDetailsFromApi(id)
-        call.enqueue(object : Callback<ArticleDetails>{
-            override fun onResponse(call: Call<ArticleDetails>, response: Response<ArticleDetails>) {
+        call.enqueue(object : Callback<ArticleDetails> {
+            override fun onResponse(
+                call: Call<ArticleDetails>,
+                response: Response<ArticleDetails>
+            ) {
                 Loading.hideLoading()
                 val acticleResponse = response.body()
 
@@ -83,9 +87,11 @@ class DetailArticleActivity : AppCompatActivity() {
                     editTextText_desc.setText(acticleResponse.text)
 
 
-                }else{
+                } else {
                     Loading.hideLoading()
-                    WidgetUtils.showErrorDialog(this@DetailArticleActivity, "Service Error!!", getString(R.string.ok_btn),
+                    WidgetUtils.showErrorDialog(this@DetailArticleActivity,
+                        "Service Error!!",
+                        getString(R.string.ok_btn),
                         object : WidgetUtils.DialogButton {
                             override fun onClickButton1(dlg: Dialog) {
                                 dlg.dismiss()
@@ -99,7 +105,9 @@ class DetailArticleActivity : AppCompatActivity() {
                 t.printStackTrace()
                 Loading.hideLoading()
                 Log.d("error------>", "" + t.message)
-                WidgetUtils.showErrorDialog(this@DetailArticleActivity, "Service Error!!", getString(R.string.ok_btn),
+                WidgetUtils.showErrorDialog(this@DetailArticleActivity,
+                    "Service Error!!",
+                    getString(R.string.ok_btn),
                     object : WidgetUtils.DialogButton {
                         override fun onClickButton1(dlg: Dialog) {
                             dlg.dismiss()

@@ -20,7 +20,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-@Suppress("DEPRECATION")
+@Suppress("DEPRECATION", "NAME_SHADOWING")
 class ArticleListActivity : AppCompatActivity() {
 
     private lateinit var articleAdapter: ArticleAdapter
@@ -33,7 +33,6 @@ class ArticleListActivity : AppCompatActivity() {
         viewModel = ViewModelProviders.of(this).get(ArticleViewModel()::class.java)
         getArticleData()
     }
-
     internal fun getArticleData() {
         Loading.showLoading(this)
 
@@ -49,7 +48,6 @@ class ArticleListActivity : AppCompatActivity() {
                     listView.adapter = articleAdapter
 
                     listView.setOnItemClickListener { parent, view, position, id ->
-                        val itemIdAtPos = parent.getItemIdAtPosition(position)
                         val id = acticleResponse[position].id
                         val title = acticleResponse[position].title
                         val description = acticleResponse[position].short_description
@@ -62,7 +60,6 @@ class ArticleListActivity : AppCompatActivity() {
                         )
                     }
                     articleAdapter.notifyDataSetChanged()
-
 
                 } else {
                     textView_error.visibility = View.VISIBLE
@@ -92,8 +89,6 @@ class ArticleListActivity : AppCompatActivity() {
                             dlg.dismiss()
                         }
                     })
-
-
             }
         })
     }
