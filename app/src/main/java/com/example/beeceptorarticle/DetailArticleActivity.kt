@@ -31,7 +31,8 @@ class DetailArticleActivity : AppCompatActivity() {
         initView()
         textView_edit.setOnClickListener {
             editTextText_desc.isFocusable = true
-            if (textView_edit.text.toString() == "Edit") {
+            editTextText_desc.isEnabled = true
+             if (textView_edit.text.toString() == "Edit") {
                 textView_edit.text = getString(R.string.cancel_btn)
                 button_save.visibility = View.VISIBLE
 
@@ -47,6 +48,7 @@ class DetailArticleActivity : AppCompatActivity() {
         }
         button_save.setOnClickListener {
             editTextText_desc.isFocusable = false
+            editTextText_desc.isEnabled = false
             finish()
         }
 
