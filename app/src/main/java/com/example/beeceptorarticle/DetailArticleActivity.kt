@@ -30,24 +30,23 @@ class DetailArticleActivity : AppCompatActivity() {
         viewModel = ViewModelProviders.of(this).get(ArticleViewModel()::class.java)
         initView()
         textView_edit.setOnClickListener {
-
+            editTextText_desc.isFocusable = true
             if (textView_edit.text.toString() == "Edit") {
                 textView_edit.text = getString(R.string.cancel_btn)
                 button_save.visibility = View.VISIBLE
-                textView_edit.isFocusable = true
-                textView_edit.isClickable = true
-                textView_edit.isEnabled = true
+
+
 
             } else if (textView_edit.text.toString() == "Cancel") {
                 textView_edit.text = getString(R.string.edit_btn)
                 button_save.visibility = View.GONE
-                textView_edit.isFocusable = false
-                textView_edit.isClickable = false
-                textView_edit.isEnabled = false
+
+
             }
 
         }
         button_save.setOnClickListener {
+            editTextText_desc.isFocusable = false
             finish()
         }
 
